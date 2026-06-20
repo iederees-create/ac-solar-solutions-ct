@@ -18,10 +18,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.3">
     
     <!-- App Logic -->
-    <script defer src="app.js?v=1.2"></script>
+    <script defer src="app.js?v=1.3"></script>
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
 </head>
@@ -256,53 +256,49 @@
                         </div>
                     </div>
 
-                    <!-- 3D Visualization -->
-                    <div class="w-full lg:w-7/12 relative reveal" data-delay="200">
-                        <!-- Abstract 3D base platform -->
-                        <div class="calc-3d-scene">
-                            <div class="calc-3d-platform" id="calc-platform">
-                                
-                                <!-- Central Inverter Node -->
-                                <div class="calc-inverter-node">
-                                    <div class="w-16 h-1 bg-accent/50 rounded-full mb-6"></div>
-                                    <div class="text-accent font-display font-bold text-3xl mb-1" id="inv-size">5kW</div>
-                                    <div class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Inverter</div>
-                                    <div class="absolute bottom-4 flex gap-1">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                                    </div>
+                    <!-- Simple Visualization (Dumb-proof layout) -->
+                    <div class="w-full lg:w-7/12 reveal" data-delay="200">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            
+                            <!-- Inverter Card -->
+                            <div class="stat-card">
+                                <div class="stat-icon-wrapper icon-inverter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
                                 </div>
+                                <h4 class="text-3xl font-display font-bold text-white mb-1" id="inv-size">5kW</h4>
+                                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Inverter</p>
+                            </div>
 
-                                <!-- Floating Panel Count -->
-                                <div class="calc-panel-node" id="panel-node">
-                                    <svg class="text-blue-400 mb-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="3" y2="21"/><line x1="15" x2="15" y1="3" y2="21"/></svg>
-                                    <div class="text-white font-display font-bold text-2xl" id="panel-count">6</div>
-                                    <div class="text-[10px] text-blue-200 uppercase tracking-wider">Panels (450W)</div>
+                            <!-- Panels Card -->
+                            <div class="stat-card">
+                                <div class="stat-icon-wrapper icon-panels">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="3" y2="21"/><line x1="15" x2="15" y1="3" y2="21"/></svg>
                                 </div>
+                                <h4 class="text-3xl font-display font-bold text-white mb-1" id="panel-count">6</h4>
+                                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Panels (450W)</p>
+                            </div>
 
-                                <!-- Floating Battery Count -->
-                                <div class="calc-batt-node" id="batt-node">
-                                    <svg class="text-purple-400 mb-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="10" x="4" y="10" rx="2"/><path d="M7 10V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/><line x1="8" x2="8" y1="14" y2="16"/><line x1="16" x2="16" y1="14" y2="16"/></svg>
-                                    <div class="text-white font-display font-bold text-2xl" id="batt-size">5kWh</div>
-                                    <div class="text-[10px] text-purple-200 uppercase tracking-wider">Storage</div>
+                            <!-- Battery Card -->
+                            <div class="stat-card">
+                                <div class="stat-icon-wrapper icon-battery">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="10" x="4" y="10" rx="2"/><path d="M7 10V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/><line x1="8" x2="8" y1="14" y2="16"/><line x1="16" x2="16" y1="14" y2="16"/></svg>
                                 </div>
-
-                                <!-- Connecting energy lines -->
-                                <div class="calc-energy-lines overflow-hidden">
-                                    <div class="w-10 h-full bg-white blur-[2px] animate-shimmer-fast"></div>
-                                </div>
+                                <h4 class="text-3xl font-display font-bold text-white mb-1" id="batt-size">5kWh</h4>
+                                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Storage</p>
                             </div>
                         </div>
 
                         <!-- Savings Estimation -->
-                        <div class="calc-savings-box glass-card p-5 rounded-2xl border-green-500/30">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Est. Monthly Savings</p>
-                                    <p class="text-2xl font-display font-bold text-green-400" id="savings-display">R 1,750</p>
+                        <div class="glass-card p-6 sm:p-8 rounded-2xl border-green-500/30 w-full relative overflow-hidden group">
+                            <!-- Background glow -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/5 to-transparent -translate-x-full group-hover:animate-shimmer-fast"></div>
+                            
+                            <div class="flex flex-col sm:flex-row justify-between items-center gap-6 relative z-10">
+                                <div class="text-center sm:text-left">
+                                    <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2">Est. Monthly Savings</p>
+                                    <p class="text-4xl sm:text-5xl font-display font-bold text-green-400" id="savings-display">R 1,750</p>
                                 </div>
-                                <button class="btn-primary px-5 py-2.5 text-sm" onclick="document.getElementById('nova-chat-trigger').click()">Get Exact Quote</button>
+                                <button class="btn-primary w-full sm:w-auto px-8 py-4 text-base font-bold shadow-[0_0_20px_rgba(255,193,7,0.3)] hover:shadow-[0_0_30px_rgba(255,193,7,0.5)]" onclick="document.getElementById('nova-chat-trigger').click()">Get Exact Quote</button>
                             </div>
                         </div>
                     </div>

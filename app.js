@@ -169,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const panelCount = document.getElementById('panel-count');
         const battSize = document.getElementById('batt-size');
         const savingsDisplay = document.getElementById('savings-display');
-        const calcPlatform = document.getElementById('calc-platform');
         
         function updateCalculator() {
             const bill = parseInt(billSlider.value);
@@ -205,12 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
             panelCount.innerText = panels;
             battSize.innerText = `${battery}kWh`;
             savingsDisplay.innerText = `R ${estSavings.toLocaleString()}`;
-
-            // Update 3D Platform Transform
-            // Make the 3D platform tilt slightly based on the sliders to feel responsive
-            const rotX = 15 + (hours * 2); 
-            const rotY = -20 + (bill / 500);
-            calcPlatform.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
         }
 
         billSlider.addEventListener('input', updateCalculator);
