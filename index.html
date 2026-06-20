@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="style.css">
     
     <!-- App Logic -->
-    <script defer src="app.js?v=1.1"></script>
+    <script defer src="app.js?v=1.2"></script>
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
 </head>
@@ -531,13 +531,13 @@
     </footer>
 
     <!-- Nova AI Solar Chat Widget -->
-    <div id="nova-chat-container" class="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-[100] flex flex-col items-end">
+    <div id="nova-chat-container" class="nova-chat-wrapper">
         
         <!-- Chat Panel (Hidden by default) -->
-        <div id="nova-chat-panel" class="mb-4 w-[calc(100vw-32px)] sm:w-[380px] max-w-sm bg-[#0d1120] border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right scale-0 opacity-0" style="height: min(100dvh - 100px, 600px);">
+        <div id="nova-chat-panel" class="nova-chat-panel scale-0 opacity-0">
             
             <!-- Header -->
-            <div class="bg-gradient-to-r from-accent to-orange-500 p-4 flex items-center justify-between">
+            <div class="nova-chat-header">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shadow-inner">
                         <span class="text-white">☀️</span>
@@ -547,7 +547,7 @@
                         <p class="text-black/70 text-[10px] font-semibold uppercase tracking-wider">Solar Expert Assistant</p>
                     </div>
                 </div>
-                <button id="nova-chat-close" class="text-black/70 hover:text-black transition-colors">
+                <button id="nova-chat-close" class="text-black/70 hover:text-black transition-colors" style="background:none; border:none; cursor:pointer;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>
@@ -558,13 +558,13 @@
             </div>
 
             <!-- Messages Area -->
-            <div id="nova-chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4">
+            <div id="nova-chat-messages" class="nova-chat-messages">
                 <!-- Messages injected here by JS -->
             </div>
 
             <!-- Typing Indicator (Hidden) -->
             <div id="nova-typing" class="px-4 pb-2 hidden">
-                <div class="bg-white/10 w-16 px-3 py-2 rounded-2xl rounded-tl-none border border-white/5 flex gap-1 justify-center">
+                <div class="nova-typing-bubble">
                     <span class="w-1.5 h-1.5 bg-accent rounded-full animate-bounce" style="animation-delay: 0s"></span>
                     <span class="w-1.5 h-1.5 bg-accent rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
                     <span class="w-1.5 h-1.5 bg-accent rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
@@ -572,16 +572,16 @@
             </div>
 
             <!-- Input Area -->
-            <div id="nova-input-area" class="p-3 bg-white/[0.02] border-t border-white/5">
+            <div id="nova-input-area" class="nova-input-area">
                 <!-- Dynamic input injected here -->
             </div>
         </div>
 
         <!-- Floating Trigger Button -->
-        <button id="nova-chat-trigger" class="flex items-center gap-2.5 px-5 py-3.5 rounded-full font-semibold text-sm text-black shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 bg-gradient-to-r from-accent to-orange-500 shadow-accent/30 group">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-            <span class="hidden xs:inline">Get a Quote</span>
-            <span class="absolute inset-0 rounded-full animate-pulse bg-accent/50 group-hover:hidden"></span>
+        <button id="nova-chat-trigger" class="nova-chat-trigger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="z-index: 10;"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            <span class="nova-chat-trigger-text" style="z-index: 10;">Get a Quote</span>
+            <span class="nova-chat-pulse"></span>
         </button>
     </div>
 
