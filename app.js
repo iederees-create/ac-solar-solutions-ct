@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const messagesArea = document.getElementById('nova-chat-messages');
     const inputArea = document.getElementById('nova-input-area');
     const typingIndicator = document.getElementById('nova-typing');
-    const progressBar = document.getElementById('nova-progress');
+    const novaProgressBar = document.getElementById('nova-progress');
 
     if (chatTrigger) {
         let isOpen = false;
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Update Progress Bar
             const progressPct = ((currentStep) / FLOW.length) * 100;
-            progressBar.style.width = `${progressPct}%`;
+            novaProgressBar.style.width = `${progressPct}%`;
 
             await playBotMessages(step.bot);
 
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         async function finishFlow() {
-            progressBar.style.width = '100%';
+            novaProgressBar.style.width = '100%';
             inputArea.innerHTML = '';
             typingIndicator.classList.remove('hidden');
             scrollToBottom();
