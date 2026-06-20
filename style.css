@@ -356,6 +356,210 @@ body {
 .faq-icon { transition: transform 0.3s ease; }
 .faq-icon.active { transform: rotate(180deg); }
 
+/* === Interactive Calculator 3D === */
+.perspective-1000 { perspective: 1000px; }
+.preserve-3d { transform-style: preserve-3d; }
+.translate-z-\[30px\] { transform: translateZ(30px); }
+.translate-z-\[50px\] { transform: translateZ(50px); }
+.translate-z-\[80px\] { transform: translateZ(80px); }
+.translate-z-\[100px\] { transform: translateZ(100px); }
+
+/* 3D Scene Layout */
+.calc-3d-scene {
+  width: 100%;
+  aspect-ratio: 1/1;
+  max-height: 500px;
+  min-height: 300px;
+  position: relative;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+.calc-3d-platform {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+.calc-inverter-node {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) translateZ(50px);
+  width: 10rem; height: 12rem;
+  background: #111827;
+  border: 2px solid rgba(255, 193, 7, 0.4);
+  border-radius: 0.75rem;
+  box-shadow: 0 0 40px rgba(255, 193, 7, 0.2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 20;
+}
+.calc-panel-node {
+  position: absolute;
+  top: 5%; left: 5%;
+  transform: translateZ(80px);
+  width: 8rem; height: 8rem;
+  background: rgba(59, 130, 246, 0.1);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 30;
+  transition: all 0.3s ease;
+}
+.calc-batt-node {
+  position: absolute;
+  bottom: 15%; right: 5%;
+  transform: translateZ(100px);
+  width: 8rem; height: 8rem;
+  background: rgba(168, 85, 247, 0.1);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 30;
+  transition: all 0.3s ease;
+}
+.calc-energy-lines {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg) translateZ(30px);
+  width: 80%; height: 4px;
+  background: linear-gradient(to right, rgba(59, 130, 246, 0), rgba(255, 193, 7, 0.5), rgba(168, 85, 247, 0));
+  z-index: 10;
+}
+.calc-savings-box {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 90%; max-width: 24rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  z-index: 40;
+}
+
+/* Range Sliders */
+.styled-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  outline: none;
+}
+.styled-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+  transition: transform 0.1s;
+}
+.styled-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+.styled-slider:active::-webkit-slider-thumb { transform: scale(1.2); }
+.styled-slider.blue-slider::-webkit-slider-thumb {
+  background: #60a5fa;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+.styled-slider.blue-slider::-moz-range-thumb {
+  background: #60a5fa;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+@keyframes shimmer-fast {
+  0% { transform: translateX(-200%); }
+  100% { transform: translateX(400%); }
+}
+.animate-shimmer-fast { animation: shimmer-fast 2s infinite linear; }
+
+/* === Nova Chat Widget === */
+.origin-bottom-right { transform-origin: bottom right; }
+.scale-0 { transform: scale(0); }
+.scale-100 { transform: scale(1); }
+.opacity-0 { opacity: 0; }
+.opacity-100 { opacity: 1; }
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.chat-bubble-bot {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+  border-top-left-radius: 0.25rem;
+  align-self: flex-start;
+}
+
+.chat-bubble-user {
+  background: var(--accent);
+  color: #000;
+  font-weight: 500;
+  border-top-right-radius: 0.25rem;
+  align-self: flex-end;
+}
+
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.8) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Chat Scrollbar */
+#nova-chat-messages::-webkit-scrollbar { width: 4px; }
+#nova-chat-messages::-webkit-scrollbar-track { background: transparent; }
+#nova-chat-messages::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+
+/* Option Buttons in Chat */
+.chat-option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  color: #f8fafc;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  margin-bottom: 0.5rem;
+}
+.chat-option-btn:hover {
+  background: rgba(255, 193, 7, 0.1);
+  border-color: rgba(255, 193, 7, 0.3);
+  color: var(--accent);
+}
+
+/* Chat Input */
+.chat-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-size: 0.875rem;
+  outline: none;
+}
+.chat-input:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.08);
+}
+
 /* === Responsive Media Queries === */
 @media (min-width: 640px) {
   .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
