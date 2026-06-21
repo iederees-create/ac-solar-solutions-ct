@@ -178,9 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
             billDisplay.innerText = `R ${bill.toLocaleString()}`;
             
             // Format Hours Display
-            const stageText = hours === 1 ? "Stage 1-2 (2 hrs)" : 
-                              hours === 2 ? "Stage 3-4 (4 hrs)" : 
-                              hours === 3 ? "Stage 5-6 (6 hrs)" : "Off-Grid (8+ hrs)";
+            const stageText = hours === 1 ? "2 Hours" : 
+                              hours === 2 ? "4 Hours" : 
+                              hours === 3 ? "6 Hours" : "Off-Grid";
             hoursDisplay.innerText = stageText;
 
             // Algorithm for specs
@@ -356,6 +356,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         async function processStep() {
+            // Skip steps that are already answered via pre-fill
+            while (currentStep < FLOW.length && answers[FLOW[currentStep].id]) {
+                currentStep++;
+            }
+            
+            if (currentStep >= FLOW.length) {
+                finishFlow();
+                return;
+            }
+
             const step = FLOW[currentStep];
             
             // Update Progress Bar
@@ -448,11 +458,40 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollToBottom();
         }
 
-        function startFlow() {
+        function startFlow(prefilled = false) {
             currentStep = 0;
             answers = {};
             messagesArea.innerHTML = '';
+            
+            if (prefilled) {
+                // If they used the calculator, prepopulate state and skip bill/goal steps
+                const bill = parseInt(document.getElementById('bill-slider').value);
+                const inv = document.getElementById('inv-size').innerText;
+                const bat = document.getElementById('batt-size').innerText;
+                const pan = document.getElementById('panel-count').innerText;
+                
+                answers.bill = `R ${bill.toLocaleString()}`;
+                answers.goal = `System Specs: ${inv} Inverter, ${bat} Battery, ${pan} Panels`;
+                
+                // Customize Intro
+                FLOW[0].bot = [
+                    "Hi there! I'm Nova. 👋", 
+                    `I see you just calculated a ${inv} system with ${pan} panels!`, 
+                    "Let's finalize your quote. To start, what's your name?"
+                ];
+                // Skip Bill (index 3) and Goal (index 4) later by overriding processStep logic? 
+                // Better yet, just let the processStep naturally ask them, OR dynamically filter FLOW array.
+            } else {
+                // Reset Intro just in case it was modified
+                FLOW[0].bot = ["Hi there! I'm Nova, Photon Flux's AI Assistant. 👋", "I can help generate a custom solar quote for you right now.", "To start, what's your name?"];
+            }
+            
             processStep();
+        }
+
+        window.startChatWithSpecs = function() {
+            if (!isOpen) toggleChat();
+            startFlow(true);
         }
     }
 
