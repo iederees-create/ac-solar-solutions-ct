@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 chatPanel.classList.remove('scale-0', 'opacity-0');
                 chatPanel.classList.add('scale-100', 'opacity-100');
                 chatTrigger.classList.add('scale-0', 'opacity-0');
-                if (currentStep === 0 && messagesArea.innerHTML.trim() === '') {
+                if (currentStep === 0 && messagesArea.children.length === 0) {
                     startFlow();
                 }
             } else {
