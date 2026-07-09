@@ -1,0 +1,29 @@
+# Private product-package content - never publish to this public demo repo
+etsy-seller-pack/
+buyer-package/
+product-download/
+private-assets/
+*.zip
+*license*
+*licence*
+LICENSE-BUYER*
+
+# Private/unpublished screenshots and working files
+backup-before-premium-redesign/
+*-private/
+private-*
+
+# Secrets and environment files
+.env
+.env.*
+*.pem
+*.key
+GITHUB_TOKEN.txt
+GROK_TOKEN.txt
+**/credentials.json
+**/*token*.txt
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/

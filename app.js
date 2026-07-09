@@ -1,6 +1,82 @@
 // app.js - Main interactive logic for Photon Flux Energy
 
+// ============================================================
+// SITE CONFIGURATION
+// Edit these values to control the demo behaviour and links.
+// This is the ONLY place demo/contact settings should be changed.
+// ============================================================
+window.SITE_CONFIG = {
+    // When true, this build is a public template demonstration:
+    // - Shows a "Live Template Demo" banner
+    // - The quote chat and WhatsApp CTAs never contact a real number
+    // - A demo success message is shown instead of a real submission
+    demoMode: true,
+
+    // Etsy listing URL for this template. Leave empty ('') to hide every
+    // "View on Etsy" button on the page.
+    etsyListingUrl: '',
+
+    // Placeholder-only values for the public demo. The real business swaps
+    // these in after purchase - never real contact details in this repo.
+    businessName: 'Photon Flux Energy',
+    contactPhone: '+27 00 000 0000',
+    contactEmail: 'demo@example.com',
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    // 0. Demo Mode: banner, Etsy buttons, and a shared "demo notice" toast
+    (function initDemoMode() {
+        const cfg = window.SITE_CONFIG || {};
+
+        function showDemoNotice(message) {
+            const toast = document.createElement('div');
+            toast.className = 'demo-toast';
+            toast.setAttribute('role', 'status');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4500);
+        }
+        window.showDemoNotice = showDemoNotice;
+
+        function renderEtsyButton(className) {
+            if (!cfg.etsyListingUrl) return '';
+            return `<a href="${cfg.etsyListingUrl}" target="_blank" rel="noopener noreferrer" class="${className}">View on Etsy</a>`;
+        }
+
+        // Fill any static "Etsy button slot" placeholders in the page
+        document.querySelectorAll('[data-etsy-slot]').forEach((slot) => {
+            slot.innerHTML = renderEtsyButton(slot.getAttribute('data-etsy-slot') || 'etsy-cta-btn');
+        });
+
+        if (cfg.demoMode) {
+            const banner = document.createElement('div');
+            banner.id = 'demo-banner';
+            banner.className = 'demo-banner';
+            banner.innerHTML = `
+                <div class="demo-banner-inner">
+                    <span class="demo-banner-badge">Live Template Demo</span>
+                    <span class="demo-banner-text">Live website-template demonstration. Company details, testimonials, projects and savings figures are sample content. Purchase and digital delivery are available through the Etsy listing.</span>
+                    ${renderEtsyButton('demo-banner-etsy-btn')}
+                </div>`;
+            document.body.prepend(banner);
+            document.body.classList.add('has-demo-banner');
+            requestAnimationFrame(() => {
+                document.documentElement.style.setProperty('--demo-banner-height', banner.offsetHeight + 'px');
+            });
+        }
+
+        // Intercept any direct WhatsApp CTA (footer, static links) so no real
+        // enquiry is ever sent from the public demo.
+        if (cfg.demoMode) {
+            document.querySelectorAll('a[data-demo-intercept]').forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showDemoNotice('This is a live template demonstration - no real enquiry has been sent. Purchase and digital delivery are available through the Etsy listing.');
+                });
+            });
+        }
+    })();
     
     // 1. Scroll Progress Bar & Nav styling
     const progressBar = document.getElementById('scroll-progress');
@@ -428,12 +504,31 @@ document.addEventListener('DOMContentLoaded', () => {
             
             await new Promise(r => setTimeout(r, 1500));
             typingIndicator.classList.add('hidden');
-            
+
+            // In demo mode, never build a real WhatsApp link or expose a real
+            // phone number - show a clear demo success message instead.
+            if (window.SITE_CONFIG && window.SITE_CONFIG.demoMode) {
+                renderBotMessage("This is a live template demonstration \uD83C\uDF89 - no real enquiry has been sent.");
+                renderBotMessage("In the purchased, customized version, this connects directly to the business owner's real WhatsApp number for instant lead delivery.");
+                inputArea.innerHTML = `
+                    <div class="demo-success-message">
+                        <strong>Demo enquiry captured.</strong> Purchase and digital delivery are available through the Etsy listing.
+                    </div>
+                    <div data-etsy-slot="demo-success-etsy-btn"></div>
+                `;
+                if (window.SITE_CONFIG.etsyListingUrl) {
+                    const slot = inputArea.querySelector('[data-etsy-slot]');
+                    slot.innerHTML = `<a href="${window.SITE_CONFIG.etsyListingUrl}" target="_blank" rel="noopener noreferrer" class="demo-banner-etsy-btn">View on Etsy</a>`;
+                }
+                scrollToBottom();
+                return;
+            }
+
             renderBotMessage("All done! \uD83C\uDF89 I'm sending your brief to our lead engineer right now.");
             renderBotMessage("Click the button below to connect with us on WhatsApp and receive your quote.");
 
-            // Build WhatsApp Message
-            const waPhone = "27629494708";
+            // Build WhatsApp Message (live mode only - never reached in demoMode)
+            const waPhone = (window.SITE_CONFIG && window.SITE_CONFIG.contactPhone || '').replace(/\D/g, '');
             const text = `*New Solar Quote Request (Node-59)*\n\n` +
                 `*Name:* ${answers.intro}\n` +
                 `*Location:* ${answers.suburb}\n` +

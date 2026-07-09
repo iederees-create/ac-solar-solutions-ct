@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iederees-create.github.io/ac-solar-solutions-ct/sitemap.xml
